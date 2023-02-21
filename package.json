@@ -2,14 +2,14 @@
   "name": "parcel-project-template",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://alexander-kulyk.github.io/stats-ships-2",
+  "homepage": "https://alexander-kulyk.github.io/stars-ships-2",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /stats-ships-2/"
+    "build": "parcel build src/*.html --public-url /stars-ships-2/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexander-kulyk/stats-ships-2.git"
+    "url": "git+https://github.com/alexander-kulyk/stars-ships-2.git"
   },
   "keywords": [],
   "author": "Alexander Repeta <alexander.repeta@gmail.com>",
