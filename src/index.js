@@ -27,9 +27,13 @@ getAllStarsShips();
 refs.container.addEventListener('click', shipMoveingInAttack);
 function shipMoveingInAttack(e) {
   const btnElement = e.target;
-  const shipCard = btnElement.parentNode;
   //shipCard.classList.add('ship-in-flying');
 
+  const checkClassElement = btnElement.classList.contains('attack-btn');
+  if (checkClassElement === false) {
+    return;
+  }
+  const shipCard = btnElement.parentNode;
   const starShip = shipCard.firstElementChild;
   const shipName = starShip.textContent;
 
