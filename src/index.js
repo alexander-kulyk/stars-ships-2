@@ -14,9 +14,7 @@ import './index.css';
 
 const getAllStarsShips = async () => {
   try {
-    const dataShips = await getShips();
-
-    const allStarsShips = dataShips.results;
+    const allStarsShips = (await getShips()).results;
 
     const updatedStarsShips = getImagesShips(allStarsShips);
 
@@ -32,12 +30,12 @@ const getAllStarsShips = async () => {
 getAllStarsShips();
 
 //----------------------------------------------------------------
-refs.container.addEventListener('click', shipMoveingInAttack);
-function shipMoveingInAttack(e) {
+
+const shipMoveingInAttack = e => {
   const btnElement = e.target;
 
   const checkClassElement = btnElement.classList.contains('attack-btn');
-  if (checkClassElement === false) {
+  if (!checkClassElement) {
     return;
   }
 
@@ -49,21 +47,167 @@ function shipMoveingInAttack(e) {
 
   setTimeout(() => {
     const starsShipsList = getLocalStorage();
-    const newStarsShipList = starsShipsList.filter(ship => {
-      if (ship.name === shipName) {
-        return;
-      }
-      return [].push(ship);
-    });
+    const newStarsShipList = starsShipsList.filter(
+      ship => ship.name !== shipName
+    );
 
     renderStarsShipsCard(newStarsShipList);
     setLocalStorage(newStarsShipList);
 
-    if (getLocalStorage().length === 0) {
+    if (newStarsShipList.length === 0) {
       refs.container.innerHTML = `<h1 class='title-no-ships'>All stars ships are in battle</h1>`;
     }
   }, 1000);
+};
+
+refs.container.addEventListener('click', shipMoveingInAttack);
+
+// function* fibonacci() {
+//   let [prev, curr] = [0, 1];
+//   while (true) {
+//     [prev, curr] = [curr, prev + curr];
+//     yield curr;
+//   }
+// }
+
+// const fib = fibonacci();
+
+// console.log(fib.next().value); // 1
+// console.log(fib.next().value); // 1
+// console.log(fib.next().value); // 2
+// console.log(fib.next().value); // 3
+// console.log(fib.next().value); // 5
+
+// function* simpleGenerator() {
+//   yield 0;
+//   yield 1;
+//   yield 2;
+// }
+
+// const gen = simpleGenerator();
+
+// console.log(gen.next().value); // 0
+// console.log(gen.next().value); // 1
+// console.log(gen.next().value); // 2
+
+const numbers = {
+  [Symbol.iterator]() {
+    let num = 0;
+    return {
+      next() {
+        num++;
+        if (num <= 5) {
+          return { value: num, done: false };
+        } else {
+          return { done: true };
+        }
+      },
+    };
+  },
+};
+
+for (let num of numbers) {
 }
 
-// const cardShip = document.querySelector('.card-ship');
-// cardShip.addEventListener('click', shipMoveingInAttack);
+// const myIterable = {
+//   [Symbol.iterator]: function* () {
+//     yield 1;
+//     yield 2;
+//     yield 3;
+//   },
+// };
+
+// for (let value of myIterable) {
+//   console.log('myIterable', myIterable);
+//   console.log('value', value);
+//   // console.log(value); // 1, 2, 3
+// }
+
+const students = [
+  { name: 'John', score: 80 },
+  { name: 'Mary', score: 55 },
+  { name: 'Bob', score: 70 },
+  { name: 'Alice', score: 90 },
+];
+
+function* passedStudents() {
+  for (const student of students) {
+    if (student.score >= 60) {
+      yield student.name;
+    }
+  }
+}
+
+// console.log('students', passedStudents().next());
+
+for (const students of passedStudents()) {
+  console.log('students', students);
+}
+
+const phoneBook = {
+  'John Doe': '123-456-7890',
+  'Jane Doe': '234-567-8901',
+  'Bob Smith': '345-678-9012',
+  'Alice Johnson': '456-789-0123',
+
+  [Symbol.iterator]: function* () {
+    const entries = Object.entries(this);
+    for (let i = 0; i < entries.length; i++) {
+      yield entries[i];
+    }
+  },
+};
+
+for (const iterator of phoneBook) {
+  console.log('phoneBook', phoneBook);
+}
+
+class EventEmitter {
+  constructor() {
+    this.events = {};
+  }
+
+  subscribe(eventName, listener) {
+    if (!this.events[eventName]) {
+      this.events[eventName] = [];
+    }
+    this.events[eventName].push(listener);
+  }
+
+  unsubscribe(eventName, listenerToRemove) {
+    if (!this.events[eventName]) return;
+    const index = this.events[eventName].indexOf(listenerToRemove);
+    if (index !== -1) {
+      this.events[eventName].splice(index, 1);
+    }
+  }
+
+  emit(eventName, ...args) {
+    if (!this.events[eventName]) {
+      return;
+    }
+    this.events[eventName].forEach(listener => listener(...args));
+  }
+}
+
+const emitter = new EventEmitter();
+
+const onGreeting = name => console.log(`hello ${name}`);
+
+emitter.subscribe('greeting', onGreeting);
+console.log('emitter', emitter.events);
+
+emitter.emit('greeting', 'Alex');
+emitter.unsubscribe('greeting', onGreeting);
+
+console.log('emitter', emitter.events);
+
+const arr = [1, 2, 3];
+
+const iterator = arr.values();
+console.log('iterator', iterator);
+
+console.log(iterator.next()); // 1
+console.log(iterator.next().value); // 2
+console.log(iterator.next().value); // 3
+console.log(iterator.next().done); // true
