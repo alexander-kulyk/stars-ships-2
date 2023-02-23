@@ -11,10 +11,13 @@ export const arrImgs = [
   'https://www.denofgeek.com/wp-content/uploads/2020/06/star-wars-outrider.jpg?fit=1024%2C552',
 ];
 
-export const getImagesShips = allStarsShips => {
-  const updatedStarsShips = allStarsShips.map((ship, idx) => {
+export const addImagesToShips = allStarsShips => {
+  return allStarsShips.map((ship, idx) => {
     return { ...ship, image: arrImgs[idx] };
   });
 
-  return updatedStarsShips;
+  //   for (let i = 0; i < allStarsShips.length; i++) {
+  //     allStarsShips[i].image = arrImgs[i];
+  //   }
+  //   return allStarsShips;
 };

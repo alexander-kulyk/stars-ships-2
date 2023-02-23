@@ -5,7 +5,7 @@ import {
   checkLocalStorage,
 } from './js/localStorage/localStorage';
 import { renderStarsShipsCard } from './js/markups/markup-ships';
-import { getImagesShips } from './js/images-ships';
+import { addImagesToShips } from './js/images-ships';
 import Notiflix from 'notiflix';
 import refs from './js/refs/refs';
 import './index.css';
@@ -16,7 +16,8 @@ const getAllStarsShips = async () => {
   try {
     const allStarsShips = (await getShips()).results;
 
-    const updatedStarsShips = getImagesShips(allStarsShips);
+    const updatedStarsShips = addImagesToShips(allStarsShips);
+    console.log('updatedStarsShips', updatedStarsShips);
 
     setLocalStorage(updatedStarsShips);
     renderStarsShipsCard(updatedStarsShips);

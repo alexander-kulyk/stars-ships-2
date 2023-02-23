@@ -2,7 +2,7 @@ import refs from '../refs/refs';
 
 export const renderStarsShipsCard = allStarsShips => {
   const starsShipsList = allStarsShips
-    ?.map(ship => {
+    .map(ship => {
       const { name, model, created, passengers, image } = ship;
       return `
       <div class='card-ship'>
