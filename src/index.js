@@ -32,7 +32,7 @@ getAllStarsShips();
 
 //----------------------------------------------------------------
 
-const shipMoveingInAttack = e => {
+const handleAttack = e => {
   const btnElement = e.target;
 
   const checkClassElement = btnElement.classList.contains('attack-btn');
@@ -61,7 +61,7 @@ const shipMoveingInAttack = e => {
   }, 1000);
 };
 
-refs.container.addEventListener('click', shipMoveingInAttack);
+refs.container.addEventListener('click', handleAttack);
 
 // function* fibonacci() {
 //   let [prev, curr] = [0, 1];
